@@ -1,0 +1,16 @@
+.loadMoreBtn {
+    background-color: var(--btn-color);
+    transition: var(--btn-transition);
+    padding: 10px 50px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+}
+
+.loadMoreBtn:hover,
+.loadMoreBtn:focus {
+    background-color: var(--btn-hover-color);
+    box-shadow: var(--btn-hover-shadow);
+}
