@@ -2,12 +2,13 @@ import ImageGallery from "../imageGallery/ImageGallery";
 import SearchBar from "../searchBar/SearchBar";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import LoadMoreBtn from "../loadMoreBtn/LoadMoreBtn";
-import getImages from "../../unsplash-api";
+import getImages from "../../services/unsplashApi";
 import { Toaster, toast } from "react-hot-toast";
 import { useEffect, useState, useRef } from "react";
 import { RotatingSquare } from "react-loader-spinner";
 import css from "./App.module.css";
 import ImageModal from "../imageModal/ImageModal";
+import { Image } from "../../services/unsplashApi.types";
 
 const errorNotify = () => toast.error("No results found");
 
@@ -19,33 +20,33 @@ const App = () => {
 	const [hasMore, setHasMore] = useState(false);
 	const [query, setQuery] = useState("");
 	const [modalIsOpen, setIsOpen] = useState(false);
-	const [modalImage, setModalImage] = useState(null);
+	const [modalImage, setModalImage] = useState<Image>(null);
 
-	const galleryRef = useRef();
-	const loadMoreRef = useRef();
+	const galleryRef = useRef<HTMLUListElement>(null);
+	const loadMoreRef = useRef<HTMLButtonElement>(null);
 
-	const handleOpenModal = (image) => {
+	const handleOpenModal = (image: Image): void => {
 		setIsOpen(true);
 		setModalImage(image);
 	};
 
-	const handleCloseModal = () => {
+	const handleCloseModal = (): void => {
 		setIsOpen(false);
 		setModalImage(null);
 	};
 
-	const handleSearch = (userQuery) => {
+	const handleSearch = (userQuery: string): void => {
 		if (query === userQuery) return;
 		setImages([]);
 		setQuery(userQuery);
 		setCurrentPage(1);
 	};
 
-	const handleClickLoadMore = () => {
+	const handleClickLoadMore = (): void => {
 		setCurrentPage((prev) => prev + 1);
 	};
 
-	useEffect(() => {
+	useEffect((): void => {
 		if (!query) return;
 
 		async function fetchImages() {
@@ -59,7 +60,7 @@ const App = () => {
 				}
 
 				setHasMore(data.total_pages > currentPage);
-				setImages((prev) => [...prev, ...data.results]);
+				setImages((prev)=> [...prev, ...data.results]);
 			} catch (error) {
 				setError(true);
 			} finally {
@@ -72,9 +73,9 @@ const App = () => {
 
 	useEffect(() => {
 		if (images.length > 0 && hasMore) {
-			loadMoreRef.current.scrollIntoView({ behavior: "smooth" });
+			loadMoreRef.current?.scrollIntoView({ behavior: "smooth" });
 		} else if (!hasMore) {
-			galleryRef.current.scrollIntoView({
+			galleryRef.current?.scrollIntoView({
 				block: "end",
 				inline: "nearest",
 				behavior: "smooth",
