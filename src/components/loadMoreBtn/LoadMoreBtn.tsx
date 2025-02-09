@@ -1,7 +1,8 @@
 import { forwardRef } from "react";
 import css from "./LoadMoreBtn.module.css";
+import { Props } from "./LoadMoreBtn.types";
 
-const LoadMoreBtn = forwardRef((props, ref) => {
+const LoadMoreBtn = forwardRef<HTMLButtonElement, Props>((props, ref) => {
 	return (
 		<button
 			type="button"

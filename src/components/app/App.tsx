@@ -8,12 +8,12 @@ import { useEffect, useState, useRef } from "react";
 import { RotatingSquare } from "react-loader-spinner";
 import css from "./App.module.css";
 import ImageModal from "../imageModal/ImageModal";
-import { Image } from "../../services/unsplashApi.types";
+import { Image, Images } from "../../services/unsplashApi.types";
 
 const errorNotify = () => toast.error("No results found");
 
 const App = () => {
-	const [images, setImages] = useState([]);
+	const [images, setImages] = useState<Images>([]);
 	const [loader, setLoader] = useState(false);
 	const [error, setError] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -25,28 +25,28 @@ const App = () => {
 	const galleryRef = useRef<HTMLUListElement>(null);
 	const loadMoreRef = useRef<HTMLButtonElement>(null);
 
-	const handleOpenModal = (image: Image): void => {
+	const handleOpenModal = (image: Image) => {
 		setIsOpen(true);
 		setModalImage(image);
 	};
 
-	const handleCloseModal = (): void => {
+	const handleCloseModal = () => {
 		setIsOpen(false);
 		setModalImage(null);
 	};
 
-	const handleSearch = (userQuery: string): void => {
+	const handleSearch = (userQuery: string) => {
 		if (query === userQuery) return;
 		setImages([]);
 		setQuery(userQuery);
 		setCurrentPage(1);
 	};
 
-	const handleClickLoadMore = (): void => {
+	const handleClickLoadMore = () => {
 		setCurrentPage((prev) => prev + 1);
 	};
 
-	useEffect((): void => {
+	useEffect(() => {
 		if (!query) return;
 
 		async function fetchImages() {

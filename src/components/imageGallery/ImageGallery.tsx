@@ -1,14 +1,9 @@
 import css from "./ImageGallery.module.css";
 import ImageCard from "../imageCard/ImageCard";
 import { forwardRef } from "react";
-import { Image, Images } from "../../services/unsplashApi.types";
+import { Props } from "./ImageGallery.types";
 
-type Props = {
-	images: Images
-	onOpenModal: (image: Image) => void
-}
-
-const ImageGallery = forwardRef((props: Props, ref) => {
+const ImageGallery = forwardRef<HTMLUListElement, Props>((props, ref) => {
 	return (
 		<ul className={css.galleryContainer} ref={ref}>
 			{props.images.map((image) => {
