@@ -26,12 +26,13 @@ const App = () => {
 	const loadMoreRef = useRef<HTMLButtonElement>(null);
 
 	const handleOpenModal = (image: Image) => {
-		setIsOpen(true);
+		if (modalIsOpen) return;
+		setIsOpen(prev=> !prev);
 		setModalImage(image);
 	};
 
 	const handleCloseModal = () => {
-		setIsOpen(false);
+		setIsOpen(prev=> !prev);
 		setModalImage(null);
 	};
 

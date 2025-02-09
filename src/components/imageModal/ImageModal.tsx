@@ -5,6 +5,8 @@ import { Props } from "./ImageModal.types";
 Modal.setAppElement("#root");
 
 const ImageModal = ({ image, onCloseModal, value }: Props) => {
+	if (!image) return null;
+	
 	return (
 		<Modal
 			isOpen={value}
