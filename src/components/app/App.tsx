@@ -14,12 +14,12 @@ const errorNotify = () => toast.error("No results found");
 
 const App = () => {
 	const [images, setImages] = useState<Images>([]);
-	const [loader, setLoader] = useState(false);
-	const [error, setError] = useState(false);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [hasMore, setHasMore] = useState(false);
-	const [query, setQuery] = useState("");
-	const [modalIsOpen, setIsOpen] = useState(false);
+	const [loader, setLoader] = useState<boolean>(false);
+	const [error, setError] = useState<boolean>(false);
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [hasMore, setHasMore] = useState<boolean>(false);
+	const [query, setQuery] = useState<string>("");
+	const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 	const [modalImage, setModalImage] = useState<Image>(null);
 
 	const galleryRef = useRef<HTMLUListElement>(null);
